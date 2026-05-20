@@ -1,0 +1,445 @@
+LOAVIA
+Healthy Inside, Yummy Outside
+PROJECT REQUIREMENTS DOCUMENT
+Full-Stack Premium Cookie Brand E-Commerce Platform
+Prepared for
+Antigravity Development Team
+Project Name
+LOAVIA — Cookie Brand Web Platform
+Document Version
+v1.0 — Initial Build Requirements
+Date
+May 2026
+1. Project Overview
+LOAVIA is a premium cookie brand with the tagline 'Healthy Inside, Yummy Outside.' This document defines the complete requirements for building LOAVIA's web platform — a brand website combined with a fully functional e-commerce system. The platform must serve as both a storytelling vehicle for the brand and a high-conversion shopping experience.
+Mission: Build a high-conversion, premium cookie e-commerce platform that combines fast ordering, emotional brand engagement, product customization, and a scalable backend architecture.
+The website must feel: Fast (low friction) | Visual (product-first) | Emotional (cravings-driven) | Interactive (micro-engagements)
+1.1 Business Objectives
+Drive impulse purchases through visual, emotion-first design
+Enable gifting use-cases with occasion-based customization
+Provide an interactive brand experience through animations and 3D elements
+Build repeat customers through a loyalty and reward points system
+Maintain a scalable, API-first backend architecture ready for future mobile app integration
+1.2 Design Philosophy
+Premium, luxury, and modern UI — no generic or template-looking layouts
+Brand-focused color palette: warm browns, creams, golds — derived from the LOAVIA logo
+Mobile-first and fully responsive across all device sizes
+High-quality product imagery with smooth, purposeful animations (GSAP scroll effects, Three.js 3D cookies)
+Fast loading speed — optimized images, lazy loading, performance-first code
+2. Technology Stack
+The following technology stack is required. No substitutions without prior discussion.
+Layer
+Technology
+Purpose
+Frontend Framework
+React.js / Next.js
+Component-based UI, SSR for SEO
+Styling
+Tailwind CSS
+Utility-first responsive design
+Animations
+GSAP (GreenSock)
+Scroll-triggered animations, transitions
+3D Elements
+Three.js
+3D cookie models in Hero and product sections
+Backend
+Node.js + Express.js
+REST API server
+Database
+MongoDB
+Primary data store (documents/collections)
+Cache / Session
+Redis
+Cart caching, session optimization
+Payments
+Razorpay (primary) / Stripe
+UPI, Cards, payment gateway
+Image Storage
+Cloudinary or AWS S3
+Product image hosting & CDN
+Authentication
+JWT (JSON Web Tokens)
+Stateless auth with Bcrypt password hashing
+Deployment — Frontend
+Vercel
+Frontend hosting with CDN
+Deployment — Backend
+VPS (e.g. DigitalOcean / AWS)
+Backend + Redis server
+SSL
+Let's Encrypt / Cloudflare
+HTTPS required
+Architecture type: Decoupled Monolith → designed to be modular and scalable to microservices in the future.
+3. Complete Page Architecture
+The platform consists of 16 total pages across three access levels: Public (no login required), Authenticated User, and Admin Panel.
+3.1 Public Pages (No Login Required)
+Page 1 — Homepage (/)
+Purpose: Brand storytelling, product discovery, and conversion entry point.
+Required Sections (in order):
+Fixed Navigation Bar (logo, links, search, account, cart icon with badge)
+Hero Section — Large animated visual with 3D cookie element, bold headline, 'Shop Now' CTA button
+Shop by Mood — Interactive mood-based product browsing (e.g., Craving Something Sweet, Gifting, Healthy)
+Best Sellers — Product card grid with hover interactions
+Categories — Visual category tiles
+Build Your Box Highlight — CTA banner for the custom box builder
+Gifting Section — Occasion-based gifting CTA
+Limited Edition / Seasonal Products — Time-sensitive highlight
+Customer Testimonials — Star ratings + review previews
+Footer — Logo, links, support, social media, copyright
+Page 2 — Shop / Product Listing (/shop)
+Product grid layout (3–4 columns on desktop, 2 on tablet, 1 on mobile)
+Filter sidebar: category, price range, flavor tags, rating
+Sorting options: price low-high, high-low, popularity, newest
+Quick 'Add to Cart' on card hover
+Pagination OR infinite scroll
+Page 3 — Product Detail Page (/product/:slug)
+Left column: Image gallery with thumbnail switcher. Right column: Product info.
+Image gallery (main image + thumbnails, swipeable on mobile)
+Product name, short tagline, star ratings (average + count)
+Pricing section: original price, discounted price, discount % badge
+Quantity selector (increment/decrement)
+Add to Cart and Buy Now buttons
+Flavor / Mood tags
+Tabbed content below: Detailed Description | Ingredients | Reviews | Related Products
+Page 4 — Login / Register (/auth)
+Toggle between Login and Signup views
+Login: email + password, Forgot Password link
+Signup: name, email, phone, password, confirm password
+Form validation (client-side + server-side)
+Page 5 — About (/about)
+Brand story and origin narrative
+Ingredients philosophy / health-forward messaging
+Visual lifestyle imagery
+Page 6 — Contact (/contact)
+Contact form: name, email, subject, message
+Support email and phone display
+Social media links
+3.2 Authenticated User Pages
+Page 7 — Cart (/cart)
+List of cart items with image, name, price, quantity controls
+Remove item button per row
+Price breakdown: subtotal, discount, shipping estimate, total
+Coupon / promo code input field
+Proceed to Checkout CTA
+Page 8 — Checkout (/checkout)
+Multi-step or single-page checkout:
+Address Selection — saved addresses or add new. Validate ZIP/phone via regex
+Delivery Method — available shipping options
+Apply Offers — coupon codes, auto-applicable discounts
+Payment — Razorpay/Stripe integration (UPI, Cards, Net Banking)
+Order Summary — final review before placing
+Page 9 — Order Confirmation & Tracking (/orders/:id)
+Success message + order ID display
+Order status timeline: Pending → Paid → Preparing → Shipped → Delivered
+Each status has a timestamp
+Order details: items, address, payment method
+Page 10 — Order History (/orders)
+List of all past orders
+Status badge per order
+View details and invoice download per order
+Page 11 — Wishlist (/wishlist)
+Grid of saved products
+Move to Cart (with stock check) and Remove buttons
+Page 12 — User Profile (/profile)
+Tabbed layout with:
+Personal Info — name, phone, email (editable)
+Addresses — add, edit, delete saved addresses
+Orders — shortcut to order history
+Rewards — loyalty points balance and redemption history
+Page 13 — Build Your Box (/build-box)
+Cookie selection interface (grid of cookies, tap to add)
+Box size / quantity selector
+Live preview panel showing selected cookies in a box visual
+Dynamic pricing — updates in real-time as items are added
+Add custom box to cart
+Page 14 — Gift Page (/gift)
+Occasion selector (Birthday, Anniversary, Festival, Corporate, etc.)
+Packaging selection with visual preview
+Personalized message input (with character limit)
+Delivery date scheduling
+Add to cart as a gift order
+3.3 Admin Panel (Separate System — /admin)
+The Admin Panel is a separate authenticated system accessible only to admin-role users.
+Admin Page 1 — Dashboard (/admin/dashboard)
+Key metrics: total sales, today's revenue, active orders, total users
+Sales chart (daily/weekly/monthly toggle)
+Recent orders table
+Admin Page 2 — Product Management (/admin/products)
+Table of all products with search and filter
+Add new product form: name, description, ingredients, category, images (Cloudinary upload), base price, discount %, stock quantity
+Edit and delete existing products
+Toggle product active/inactive status
+Admin Page 3 — Order Management (/admin/orders)
+All orders list with filter by status
+View full order details
+Manually update order status (override)
+Trigger cancellation and refund logic
+Admin Page 4 — User Management (/admin/users)
+View all registered users
+View user profile and order history
+Manage roles (User / Admin)
+Admin Page 5 — Offers & Coupons (/admin/offers)
+Create coupon codes with type (flat/percentage), usage limit, expiry date
+Manage active/inactive coupons
+Auto-discount rules based on cart value
+4. Core System Logic & Backend Requirements
+The following describes the exact business logic that the backend must implement. This is non-negotiable system behavior.
+4.1 Authentication System
+User registration: name, email (unique index), phone, password (Bcrypt/Argon2 hashed), role (user/admin)
+Login returns a signed JWT. Token stored client-side (httpOnly cookie recommended)
+Password reset via email OTP or reset link
+All authenticated routes validate JWT on every request
+4.2 Product & Pricing Logic
+Each product stores: product_id (UUID), name, slug, description, ingredients (Array), category_id, image_urls (Array), base_price, discount_pc (0–100), stock_qty, is_active, average_rating
+Pricing formula (calculated at application layer before serving API):
+     final_price = base_price − (base_price × discount_pc / 100)
+Availability: status = IN_STOCK if (stock_qty > 0 AND is_active = true), else OUT_OF_STOCK
+Time-based discounts: start_date and end_date fields. Backend middleware checks if current_time is within the range before applying discount_pc
+If discount_pc is invalid (< 0 or > 100), return HTTP 400 Bad Request
+4.3 Cart System
+Cart persisted in Redis (for speed) or DB (for long-term), linked to user_id or session_id
+line_item_total = final_price × quantity
+cart_subtotal = sum of all line_item_totals
+Constraint: if requested_qty > current_stock_qty → return error 'Insufficient Stock'
+Guest Cart Merge: when a guest user logs in, their session cart items must be merged with their stored DB cart (no items lost)
+4.4 Checkout & Order Flow
+The checkout must follow this exact transactional sequence:
+Validate all product_ids — confirm they exist and are_active
+Inventory Soft-Lock — UPDATE stock_qty = stock_qty - qty WHERE id = X AND stock_qty > 0
+Capture and validate delivery address (regex on ZIP / phone)
+Apply offers / coupon codes
+Send cart_total to Razorpay / Stripe payment gateway
+On payment.success webhook → set order status to PAID, hard-deduct inventory
+On payment.failure or timeout → Release soft-lock: restore stock_qty
+CRITICAL: Price at checkout must be locked at the moment the checkout session starts (with a TTL). Admin price changes during active checkout sessions must not affect the in-progress order.
+4.5 Order Management System (OMS)
+Order entity fields: order_id, user_id, items (JSON), total_amount, tax, shipping_fee, payment_ref, order_status (Enum)
+Order status flow:
+PENDING → PAID → PREPARING → SHIPPED → DELIVERED → CANCELLED
+Each status transition records a timestamp (placed_at, shipped_at, delivered_at, etc.)
+Admin can manually override order status
+Cancellation triggers refund logic and stock restoration
+4.6 Review & Rating System
+Verified Buyer Gate: A user may only leave a review if:
+     SELECT COUNT(*) FROM Orders WHERE user_id = X AND product_id = Y AND status = 'DELIVERED' > 0
+Review data: rating (1–5), comment text, timestamp, is_verified flag
+Average rating cached in the Products table (updated on each new review) — do NOT recalculate on every page load
+4.7 Loyalty & Rewards System
+Users earn points on every completed order (e.g., 1 point per ₹10 spent)
+Points can be redeemed at checkout as a discount
+Points ledger: user_id, points_earned, points_redeemed, balance, transaction_reference
+4.8 Recommendation Engine
+Content-Based: Calculate Jaccard Similarity between product ingredient arrays. If user views 'Dark Chocolate Sea Salt', recommend products sharing 'Dark Chocolate' in ingredients
+Collaborative Filtering: Query Orders table for most frequent product pairs associated with the current item's category ('Users who bought X also bought Y')
+4.9 Race Condition & Edge Case Handling
+These are critical and must be implemented correctly:
+Two users buying the last item simultaneously: use Database Transactions with SELECT FOR UPDATE or Optimistic Concurrency Control
+Out-of-stock product: disable 'Add to Cart' button via API response field can_purchase: false
+Price change during active checkout: honor price at checkout session start (TTL-based price lock)
+Payment timeout: automatically release soft-locked inventory
+5. Database Schema
+MongoDB is the primary database. The following collections and key fields are required.
+Collection
+Primary Fields
+Users
+id, email (unique), password_hash, phone, name, role (user/admin), saved_addresses (Array), created_at
+Products
+id, name, slug (unique), description, ingredients (Array), category_id, image_urls (Array), base_price, discount_pc, stock_qty, is_active, average_rating, created_at
+Cart
+id, user_id / session_id, product_id, quantity, added_at
+Orders
+id, user_id, total_amount, tax, shipping_fee, payment_ref, order_status (Enum), address_snapshot, placed_at, shipped_at, delivered_at
+Order_Items
+id, order_id, product_id, product_name_snapshot, price_at_purchase, quantity
+Reviews
+id, product_id, user_id, rating, comment, is_verified, created_at
+Coupons
+id, code, type (flat/percent), value, usage_limit, used_count, expiry_date, is_active
+Wishlist
+id, user_id, product_id, added_at
+LoyaltyLedger
+id, user_id, points, type (earn/redeem), order_ref, created_at
+6. Required API Endpoints
+All endpoints follow RESTful conventions. Authenticated routes require a valid JWT Bearer token in the Authorization header.
+Endpoint
+Method
+Description
+/api/auth/register
+POST
+User registration
+/api/auth/login
+POST
+Login, returns JWT
+/api/auth/forgot-password
+POST
+Password reset trigger
+/api/products
+GET
+List all products (with filters, sort, pagination)
+/api/products/:slug
+GET
+Single product detail
+/api/products
+POST
+Admin: Create product
+/api/products/:id
+PUT / DELETE
+Admin: Edit / Delete product
+/api/cart
+GET
+Get current user's cart
+/api/cart/add
+POST
+Add item to cart
+/api/cart/update
+PUT
+Update cart item quantity
+/api/cart/remove/:id
+DELETE
+Remove item from cart
+/api/checkout/initiate
+POST
+Validate cart, soft-lock inventory, initiate payment
+/api/payment/webhook
+POST
+Handle Razorpay/Stripe payment callbacks
+/api/orders
+GET
+User's order history
+/api/orders/:id
+GET
+Single order details + tracking status
+/api/orders/:id/status
+PUT
+Admin: Update order status
+/api/wishlist
+GET / POST / DELETE
+Get, add, remove wishlist items
+/api/reviews/:productId
+GET / POST
+Get reviews, submit review (verified buyer check)
+/api/users/profile
+GET / PUT
+Get and update user profile
+/api/coupons/validate
+POST
+Validate a coupon code
+/api/admin/dashboard
+GET
+Admin: Sales metrics
+7. UI/UX & Animation Requirements
+These are not suggestions — they are core to the LOAVIA brand experience.
+7.1 Navigation Bar
+Fixed / sticky on scroll
+Left: LOAVIA logo (SVG, click → homepage)
+Center: Home | Shop | About | Contact — hover animation (underline slide or color shift)
+Right: Search icon (expands to input on click) | Account icon (dropdown: login/signup if guest, profile/orders/logout if logged in) | Cart icon with item count badge
+Mobile: hamburger menu → side drawer with all navigation items
+7.2 Hero Section
+Full viewport height
+3D cookie model (Three.js) — slow rotation or floating particle effect
+Bold headline + supporting tagline
+'Shop Now' CTA — hover effect (elevate / color shift)
+GSAP entrance animation on page load (stagger text, fade-in cookie)
+7.3 Product Cards
+Consistent card sizing across all grids
+Hover: image subtle zoom/shift, 'Add to Cart' or 'Quick View' button appears
+Smooth transition — no jarring layout shift
+7.4 Scroll Animations (GSAP ScrollTrigger)
+Sections fade/slide in as user scrolls down
+Product cards stagger-animate into view
+Testimonials section horizontal scroll or fade carousel
+Animations must not block or slow page performance
+7.5 Loading & Transitions
+Light fade-in on initial page load — no abrupt flash
+Page route transitions (smooth, 200–300ms)
+Skeleton loaders for product grids while data fetches
+7.6 Color Palette
+Derive from the LOAVIA logo:
+Primary: Deep Brown (#5C3317)
+Accent / Gold: #A0772A
+Background Cream: #F5ECD7
+Text: Near-black (#1A1A1A), Secondary gray (#555555)
+Error: Standard red. Success: Standard green
+7.7 Typography
+Brand headings: Elegant serif (e.g., Playfair Display or similar premium serif from Google Fonts)
+Body text: Clean, readable sans-serif (e.g., Inter or DM Sans)
+All text must pass WCAG 2.1 AA contrast requirements
+8. Payment Integration
+Primary gateway: Razorpay (UPI, Credit/Debit Cards, Net Banking, Wallets)
+Optional secondary: Stripe (for international orders)
+SSL certificate required — all payment data over HTTPS only
+Automatic invoice generation (PDF) on order confirmation
+Payment success notification: in-app confirmation page + email
+Payment failure notification: user-facing error message + retry option
+Webhook handler: /api/payment/webhook must process payment.success and payment.failed events from gateway
+On success: set order PAID, hard-deduct inventory, trigger notification
+On failure: release soft-lock, restore stock, notify user
+9. Notifications
+Email notifications: order confirmation, order status updates, password reset
+SMS notifications: order confirmation, shipping update (optional / phase 2)
+In-app: cart badge count, order status timeline on tracking page
+Admin alerts: low stock warning email when stock_qty < 10 (automated)
+10. Advanced & Future-Ready Features
+These should be designed for but may be implemented in a later phase:
+Subscription-based cookie boxes — recurring monthly orders via Stripe Billing
+Real-time stock updates via WebSocket (Socket.io) when stock changes globally
+SEO optimization — Next.js SSR/SSG, proper meta tags, sitemap, structured data for products
+Google Analytics integration
+Future-ready REST API for mobile app (React Native) — API must be designed to be consumed by both web and mobile
+Build Your Box — Cookie Customization: dynamic pricing, live visual preview, custom box add to cart
+Gifting System: occasion-based, packaging selection, personalized message, delivery date scheduling
+11. Development Phases & Delivery Order
+Build in this exact order. Do not start a new phase without delivering the previous one.
+Phase
+Name
+Deliverables
+Phase 0
+Planning (Complete)
+Page architecture, feature list, system logic, tech stack — all done
+Phase 1
+UI/UX Design
+Figma wireframes → final designs for all 16 pages. No coding yet.
+Phase 2
+Frontend (Mock Data)
+React project setup. Build all pages with hardcoded/mock data. GSAP animations + Three.js hero.
+Phase 3
+API Simulation
+Replace mock data with API service layer. UI calls fake endpoints. App behaves as if backend exists.
+Phase 4
+Backend Development
+Express server + all REST APIs (auth, products, cart, orders, payment).
+Phase 5
+Database Integration
+MongoDB collections + Redis. Connect backend to DB.
+Phase 6
+Integration
+Connect frontend to real backend. Replace all fake APIs with real endpoints.
+Phase 7
+Payment Integration
+Razorpay live integration. Webhook handling. Invoice generation.
+Phase 8
+Testing
+UI responsiveness, animation performance, API correctness, payment flows, edge cases.
+Phase 9
+Deployment
+Frontend → Vercel. Backend → VPS. MongoDB Atlas. Domain, SSL, env vars.
+Phase 10
+Post-Launch
+Monitoring, bug fixes, performance optimization.
+IMPORTANT: Never start backend before frontend mock is complete. Never skip the API simulation phase. Always test before deployment.
+12. Pre-Development Handoff Checklist
+Before the first line of code is written, confirm all of the following are understood and agreed upon:
+All 16 pages are defined and understood
+All feature systems are understood (auth, cart, checkout, OMS, wishlist, reviews, loyalty, gifting, customization)
+All user flows are mapped (standard purchase, quick order, custom box, gifting)
+Backend logic is fully mapped (pricing formula, inventory soft-lock, race condition handling)
+Database schema is understood and agreed
+Tech stack is confirmed — no deviations without discussion
+Payment gateway accounts (Razorpay) are set up or being set up by client
+Cloudinary / S3 account for image storage is confirmed
+Domain name and hosting plan are confirmed by client
+Design color palette and brand guidelines are confirmed
+LOAVIA — Healthy Inside, Yummy Outside
+This document contains the complete product requirements for the LOAVIA web platform. Any questions, clarifications, or scope discussions should reference this document. Changes to scope must be agreed upon in writing before implementation begins.
